@@ -1,7 +1,7 @@
 <html ng-app="jsdms-client">
 	<head>
 		<link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap.theme.min.css" />
+		<link rel="stylesheet" href="js/lib/bootstrap/dist/css/bootstrap-theme.min.css" />
 		<link rel="stylesheet" href="styles/custom.css" />
 	</head>
 	<body role="document" ng-controller="tabController as tab">
@@ -35,10 +35,8 @@
 			</div>
 		</nav>
 		<div class="container theme-showcase" role="main">
-			<!--<div class="starter-template">--></div>
 				<admin-User-List ng-show="tab.isSet(1)"></admin-User-List>
 				<admin-New-User ng-show="tab.isSet(2)"></admin-New-User>
-			<!--</div>-->
 		</div>
 		<!-- /.container -->
 		<script src="js/lib/jquery/dist/jquery.js"></script>
@@ -46,6 +44,7 @@
 		<script src="js/lib/angular/angular.min.js"></script>
 		<script src="js/main.js"></script>
 		<script src="js/controller/administration.js"></script>
+		<script src="js/services/userService.js"></script>
 	</body>
 
 </html>

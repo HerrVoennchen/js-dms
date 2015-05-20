@@ -1,28 +1,27 @@
-var app = angular.module("admin-directives", []);
-
-app.controller('adminUserController', ['$scope', '$http', function ($scope, $http) {
-	$scope.userlist = [];
-	$scope.selectedUser = {};
-
-	$scope.refresh = function () {
-		$http.get('http://localhost:8090/administration/users').success(function (data, status, headers, config) {
-			$scope.userlist = data;
-		});
-	};
-
-	$scope.refresh();
-}]);
+var app = angular.module("admin-directives", ['userServiceModule']);
 
 app.directive('adminUserList', function () {
 	return {
 		restrict: 'E',
 		templateUrl: 'views/admin/userlist.html',
-		controller: ['$scope', '$http', function ($scope, $http) {
+		controller: ['$scope', 'userService', function ($scope, userService) {
 			$scope.users = [];
 			$scope.refresh = function () {
-				$http.get('http://localhost:8090/administration/users').success(function (data, status, headers, config) {
+				userService.allUser().then(function(data){
 					$scope.users = data;
 				});
+			};
+
+			$scope.setUser = function(userId) {
+				var tmpUser = {};
+				for(index in $scope.users) {
+					var usr = $scope.users[index];
+					if(usr.id === userId) {
+						tmpUser = usr;
+					}
+				}
+
+				userService._selectedUser = tmpUser;
 			};
 
 			$scope.refresh();
@@ -35,9 +34,14 @@ app.directive('adminNewUser', function () {
 	return {
 		restrict: 'E',
 		templateUrl: 'views/admin/newuser.html',
-		controller: ['$scope', '$http', function ($scope, $http) {
-			$scope.username = '';
-			$scope.userpass = '';
+		controller: ['$scope', 'userService', function ($scope, userService) {
+			if(userService._selectedUser) {
+				$scope.username = userService._selectedUser.username || '';
+				$scope.userpass = userService._selectedUser.password || '';
+			} else {
+				$scope.username = '';//userService._selectedUser.username || '';
+				$scope.userpass = '';//userService._selectedUser.password || '';
+			}
 			$scope.alertIsVisible = false;
 			$scope.errorAlertIsVisible = false;
 			$scope.pending = false;
@@ -45,7 +49,7 @@ app.directive('adminNewUser', function () {
 			$scope.submit = function () {
 				$scope.pending = true;
 				if ($scope.username && $scope.userpass) {
-					$http.post('http://localhost:8090/administration/users', { name: $scope.username, password: $scope.userpass }).success(function (data, status, headers, config) {
+				/*	userService.addUser()
 						$scope.pending = false;
 
 						if (data.type) {
@@ -55,13 +59,15 @@ app.directive('adminNewUser', function () {
 						} else {
 							$scope.errorAlertIsVisible = true;
 						}
-					});
+					});*/
 				}
 			};
 
 			$scope.reset = function () {
-				$scope.username = '';
-				$scope.userpass = '';
+				$scope.username = userService._selectedUser.username;
+				$scope.userpass = userService._selectedUser.password;
+				//$scope.username = '';
+				//$scope.userpass = '';
 			};
 		}],
 		controllerAs: 'sub'
