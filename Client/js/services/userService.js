@@ -2,7 +2,6 @@ var app = angular.module('userServiceModule', []);
 
 app.service('userService', function($http, $q) {
     var _userList = [];
-    var _selectedUser = { username: '', password: '' };
 
     this.userList = function() {
         return [].concat(_userList);
@@ -20,6 +19,14 @@ app.service('userService', function($http, $q) {
         return $http.get('http://localhost:8090/administration/users').then(function (response) {
             _userList = response.data;
             return _userList;
+		}, function(response) {
+            return $q.reject(response.data);
+        });
+    };
+
+    this.getUser = function(id) {
+        return $http.get('http://localhost:8090/administration/users/' + id).then(function (response) {
+            return response.data;
 		}, function(response) {
             return $q.reject(response.data);
         });
