@@ -1,9 +1,13 @@
 {
     "port": 8090,
     "database": {
-        "server": "localhost",
-        "port": 28015,
-        "dbname": "jsdmscdb"
+      "dbname": "jsdmscdb",
+      "hosts": [
+        {
+          "host": "localhost",
+          "port": 28015
+        }
+      ]
     },
     "directories": {
         "documentCache": "./tmp/"
