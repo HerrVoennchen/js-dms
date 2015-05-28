@@ -8,6 +8,27 @@ app.controller('userListController', function ($scope, userService) {
 		});
 	};
 
+	$scope.deleteUser = function(id, name) {
+		BootstrapDialog.confirm({
+            title: 'WARNING',
+            message: 'Are you sure you want to delete "' + name + '" ?',
+            type: BootstrapDialog.TYPE_DANGER, // <-- Default value is BootstrapDialog.TYPE_PRIMARY
+            closable: true, // <-- Default value is false
+            draggable: true, // <-- Default value is false
+            btnCancelLabel: 'Cancel', // <-- Default value is 'Cancel',
+            btnOKLabel: 'Delete', // <-- Default value is 'OK',
+            btnOKClass: 'btn-danger', // <-- If you didn't specify it, dialog type will be used,
+            callback: function(result) {
+                // result will be true if button was click, while it will be false if users close the dialog directly.
+                if(result) {
+					userService.deleteUser(id).then(function(data){
+						$scope.refresh();
+					});
+                }
+            }
+        });
+	};
+
 	$scope.refresh();
 });
 

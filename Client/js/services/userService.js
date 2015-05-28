@@ -31,4 +31,12 @@ app.service('userService', function($http, $q) {
             return $q.reject(response.data);
         });
     };
+
+    this.deleteUser = function(id) {
+        return $http.delete('http://localhost:8090/administration/users/' + id).then(function(response) {
+            return response.data;
+        }, function(response) {
+            return $q.reject(response.data);
+        });
+    };
 });

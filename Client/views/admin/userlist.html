@@ -10,9 +10,17 @@
 <div class="col-md-12 columns" ng-repeat="user in users">
 	<div class="list-group">
 		<div class="row">
-			<a href='#/admin/users/add/{{ user.id }}' class="list-group-item">
-				{{ user.name }}
-			</a>
+			<div class="col-md-11 columns">
+				<a href='#/admin/users/add/{{ user.id }}' class="list-group-item">
+					{{ user.name }}
+				</a>
+			</div>
+			<div class="col-md-1 columns">
+				<button type="button" ng-click="deleteUser(user.id, user.name)" class="btn btn-sm btn-default">
+					<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+					<span class="glyphicon-class">Trash</span>
+				</button>
+			</div>
 		</div>
 	</div>
 </div>
