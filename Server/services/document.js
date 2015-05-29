@@ -6,6 +6,8 @@ require('../models/entities');
 var express = require('express');
 var db = require('../data/db-rethink');
 
+var multiparty = require('multiparty');
+
 var router = express.Router();
 
 var listAllDocs = function(request, response) {

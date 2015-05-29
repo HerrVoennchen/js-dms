@@ -17,7 +17,6 @@ if (cluster.isMaster) {
 
 } else {
 
-    var multer = require('multer');
     var express = require('express');
     var cors = require('cors');
     var bodyParser = require('body-parser');
@@ -30,7 +29,6 @@ if (cluster.isMaster) {
     var server = express();
     server.use(bodyParser.json()); // for parsing application/json
     server.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
-    server.use(multer()); // allow mulitpart requests
     server.use(cors()); // allow requests from different domains/origins
     server.use(helmet()); // some extra security
 
