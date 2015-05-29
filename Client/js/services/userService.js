@@ -15,6 +15,14 @@ app.service('userService', function($http, $q) {
         });
     };
 
+    this.updateUser = function(userObject) {
+        return $http.post('http://localhost:8090/administration/users/' + userObject.id, userObject).then(function (response) {
+            return response.data;
+        }, function(response) {
+            return $q.reject(response.data);
+        });
+    };
+
     this.allUser = function() {
         return $http.get('http://localhost:8090/administration/users').then(function (response) {
             _userList = response.data;

@@ -34,18 +34,16 @@ app.controller('userListController', function ($scope, userService) {
 
 app.controller('userDetailsController', function($scope, $routeParams, userService) {
 	$scope.caption = "Add a new User";
-	var tmpUser = {};
+	$scope.isNewUser = true;
+	$scope.userObj = { name: '', password: '', email: '' };
 	userService.getUser($routeParams.id).then(function(data){
-		tmpUser = data;
 
-		if(tmpUser) {
-			$scope.username = tmpUser.name || '';
-			$scope.userpass = tmpUser.password || '';
-			$scope.caption = "Edit existing User";
-		} else {
-			$scope.username = '';//userService._selectedUser.username || '';
-			$scope.userpass = '';//userService._selectedUser.password || '';
+		if(data) {
+			$scope.userObj = data;
+			$scope.isNewUser = false;
+			$scope.caption = 'Edit User';
 		}
+
 		$scope.alertIsVisible = false;
 		$scope.errorAlertIsVisible = false;
 		$scope.pending = false;
@@ -53,25 +51,29 @@ app.controller('userDetailsController', function($scope, $routeParams, userServi
 
 	$scope.submit = function () {
 		$scope.pending = true;
-		if ($scope.username && $scope.userpass) {
-		/*	userService.addUser()
+		if ($scope.userObj.name && $scope.userObj.password && $scope.userObj.email) {
+			var resultPromise = null;
+
+			if($scope.isNewUser) {
+				resultPromise = userService.addUser($scope.userObj);
+			} else {
+				resultPromise = userService.updateUser($scope.userObj);
+			}
+
+			resultPromise.then(function(data) {
 				$scope.pending = false;
 
 				if (data.type) {
-					$scope.username = '';
-					$scope.userpass = '';
+					$scope.userObj = { name: '', password: '', email: '' };
 					$scope.alertIsVisible = true;
 				} else {
 					$scope.errorAlertIsVisible = true;
 				}
-			});*/
+			});
 		}
 	};
 
 	$scope.reset = function () {
-		$scope.username = tmpUser.name;
-		$scope.userpass = tmpUser.password;
-		//$scope.username = '';
-		//$scope.userpass = '';
+		$scope.userObj = { name: '', password: '', email: '' };
 	};
 });

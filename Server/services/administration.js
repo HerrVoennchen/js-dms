@@ -47,6 +47,7 @@ router.post('/users', function(request, response) {
 
 router.post('/users/:id', function(request, response) {
     var userToUpdate = request.body;
+
     db.updateUser(userToUpdate, function(err) {
         if(err) {
             response.json({ type: false, data: 'Error: ' + err });

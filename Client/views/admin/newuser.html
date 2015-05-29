@@ -6,13 +6,19 @@
 		<p>
 			<div class="input-group">
 				<span class="input-group-addon">User name</span>
-				<input type="text" class="form-control" ng-model="username" placeholder="User name" />
+				<input type="text" class="form-control" ng-model="userObj.name" placeholder="User name" />
 			</div>
 		</p>
 		<p>
 			<div class="input-group">
 				<span class="input-group-addon">Password</span>
-				<input type="password" class="form-control" ng-model="userpass" placeholder="Password" />
+				<input type="password" class="form-control" ng-model="userObj.password" placeholder="Password" />
+			</div>
+		</p>
+		<p>
+			<div class="input-group">
+				<span class="input-group-addon">E-Mail</span>
+				<input type="text" class="form-control" ng-model="userObj.email" placeholder="E-Mail"/>
 			</div>
 		</p>
 		<input type="submit" id="submit" value="Save" class="btn btn-success"></input>
