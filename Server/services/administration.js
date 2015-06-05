@@ -86,6 +86,4 @@ router.delete('/users/:id', deleteUserFunction);
 //### document types ####################################
 
 
-
-
 module.exports = router;
