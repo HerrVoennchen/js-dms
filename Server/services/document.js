@@ -9,7 +9,11 @@ var db = require('../data/db-rethink');
 var multiparty = require('multiparty');
 var util = require('util');
 
+var fs_data = require('../data/internal/data-fileservice');
+
 var router = express.Router();
+
+fs_data.init();
 
 var listAllDocs = function(request, response) {
 
@@ -19,10 +23,12 @@ router.post('/', function (request, response) {
 
     var form = new multiparty.Form();
     form.parse(request, function(err, fields, files) {
-
-
-
-        response.json(util.inspect({ errors: err, fields: fields, files: files }, { depth: null, colors: true }));
+        db.getUser(JSON.parse(fields.objectData[0]).objectId, function(err, resObj) {
+            console.log('store file');
+            fs_data.storeFile(files.file[0], resObj, function(newFilename) {
+                resObj.files
+            });
+        });
     });
 
  /*   var document = request.body;

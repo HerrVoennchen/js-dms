@@ -6,7 +6,7 @@ class Entity {
         this.name = '';
         this.description = '';
         this.type = '';
-        this.files = new Array();
+        this.files = new Set();
     }
 }
 

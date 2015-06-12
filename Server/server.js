@@ -3,9 +3,9 @@ console.log('Service is starting up ...');
 var config = require('./config/config.json');
 
 var cluster = require('cluster');
-var numCPUs = require('os').cpus().length;
+var numCPUs = 1;//require('os').cpus().length;
 
-if (cluster.isMaster) {
+if (cluster.isMaster && false) {
     // Fork workers.
     for (var i = 0; i < numCPUs; i++) {
         cluster.fork();
