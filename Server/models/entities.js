@@ -1,35 +1,36 @@
 /**
  * Created by sebastian on 11.05.15.
  */
-class Entity {
-    constructor() {
-        this.name = '';
-        this.description = '';
-        this.type = '';
-        this.files = new Set();
-    }
+var Entity = function () {
+    this.name = '';
+    this.description = '';
+    this.type = '';
+    this.fileInfoId = '';
 }
 
-class Document extends Entity {
-    constructor() {
-        super.constructor();
-
-        this.type = 'DOCUMENT';
-    }
+var FileInfo = function () {
+    this.filename = '';
+    this.size = 0;
+    this.extraData = {};
+    this.createPath = '';
 }
 
-class Container extends Entity {
-    constructor() {
-        super.constructor();
-
-        this.type = 'CONTAINER';
-    }
+var Document = function () {
+    Entity.call(this);
+    this.type = 'DOCUMENT';
 }
 
-class File {
-    constructor() {
-        this.filename = '';
-        this.size = 0;
-        this.extraData = {};
-    }
+Document.prototype = Object.create(Entity.prototype);
+Document.prototype.constructor = Document;
+
+var Container = function () {
+    this.type = 'CONTAINER';
 }
+
+Container.prototype = Object.create(Entity.prototype);
+Container.prototype.constructor = Container;
+
+module.exports.Entity = Entity;
+module.exports.FileInfo = FileInfo;
+module.exports.Document = Document;
+module.exports.Container = Container;

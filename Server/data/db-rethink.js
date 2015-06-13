@@ -1,5 +1,6 @@
 var config = require('../config/config.json');
 var r = require('rethinkdbdash')({ servers: config.database.hosts });
+var util = require('util');
 
 exports.listAllUser = function(callback) {
     r.db(config.database.dbname).table('users').run(function(err, res) {
@@ -39,6 +40,20 @@ exports.searchDocs = function (docObj, callback) {
 
 exports.addDocument = function (document, callback) {
     r.db(config.database.dbname).table('documents').insert(document).run(function(err, res) {
+        //console.log(util.inspect(err));
+        //console.log(util.inspect(res));
+        callback(err, res);
+    });
+};
+
+exports.updateDocument = function (document, callback) {
+    r.db(config.database.dbname).table('documents').update(document).run(function(err, res) {
+        callback(err, res);
+    });
+};
+
+exports.addFileInfo = function(fileInfo, callback) {
+    r.db(config.database.dbname).table('fileinfo').insert(fileInfo).run(function(err, res) {
         callback(err, res);
     });
 };

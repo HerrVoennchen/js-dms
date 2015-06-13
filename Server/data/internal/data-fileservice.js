@@ -2,6 +2,7 @@
  * Created by sebastian on 12.06.15.
  */
 var config = require('../../config/config.json');
+
 var fs = require('fs');
 var path = require('path');
 var util = require('util');
@@ -22,18 +23,20 @@ exports.init = function () {
 };
 
 exports.storeFile = function (tmpFileObj, dataObject, callback) {
-    fs.exists(tmpFileObj.path, function() {
-        var newDocFilename = path.join(_ABS_CACHEDIR, dataObject.id, tmpFileObj.originalFilename);
-        fs.stat(path.dirname(newDocFilename), function (err, stats) {
-            if(!stats) {
-                fs.mkdir(path.dirname(newDocFilename));
-            }
+    fs.stat(tmpFileObj.path, function(err, stats) {
+        if(stats) {
+            var newDocFilename = path.join(_ABS_CACHEDIR, dataObject.id, tmpFileObj.originalFilename);
+            fs.stat(path.dirname(newDocFilename), function (err, stats) {
+                if (!stats) {
+                    fs.mkdir(path.dirname(newDocFilename));
+                }
 
-            fs.rename(tmpFileObj.path, newDocFilename, function() {
-                console.log('File to object ' + dataObject.id + ' stored');
-                callback(newDocFilename.replace(_ABS_CACHEDIR, ""));
+                fs.rename(tmpFileObj.path, newDocFilename, function () {
+                    console.log('File to object ' + dataObject.id + ' stored');
+                    callback(newDocFilename.replace(_ABS_CACHEDIR, ""));
+                });
             });
-        });
+        }
     });
 };
 
