@@ -28,7 +28,7 @@ exports.storeFile = function (tmpFileObj, dataObject, callback) {
             var newDocFilename = path.join(_ABS_CACHEDIR, dataObject.id, tmpFileObj.originalFilename);
             fs.stat(path.dirname(newDocFilename), function (err, stats) {
                 if (!stats) {
-                    fs.mkdir(path.dirname(newDocFilename));
+                    fs.mkdirSync(path.dirname(newDocFilename));
                 }
 
                 fs.rename(tmpFileObj.path, newDocFilename, function () {

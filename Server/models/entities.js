@@ -6,6 +6,7 @@ var Entity = function () {
     this.description = '';
     this.type = '';
     this.fileInfoId = '';
+    this.tags = [];
 }
 
 var FileInfo = function () {

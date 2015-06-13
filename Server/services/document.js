@@ -8,6 +8,7 @@ var db = require('../data/db-rethink');
 var multiparty = require('multiparty');
 var util = require('util');
 var fs_data = require('../data/internal/data-fileservice');
+var _ = require('lodash');
 
 var router = express.Router();
 
@@ -17,6 +18,10 @@ var listAllDocs = function(request, response) {
 
 };
 
+/// objectData = indexdaten Dokument
+/// locationData = indexdaten Standort
+/// fileExtraData = extra indexdaten speziell für Datei
+/// file = die Datei
 router.post('/', function (request, response) {
 
     var form = new multiparty.Form();
@@ -25,13 +30,26 @@ router.post('/', function (request, response) {
         var fileObj = files.file[0];
         var dataObj = JSON.parse(fields.objectData[0]);
 
+        var fileExtraObj = {};
+        if(_.has(fields, 'fileExtraData')) {
+            fileExtraObj = JSON.parse(fields.fileExtraData[0]);
+        }
+
+        var locationObj = {};
+        if(_.has(fields, 'locationData')) {
+            locationObj = JSON.parse(fields.locationData[0]);
+        }
+
         var document = new classes.Document();
-        document.name = fileObj.originalFilename;
+        document.name = dataObj.name || fileObj.originalFilename;
+        if(_.has(dataObj, 'description')) {
+            document.description = dataObj.description;
+        }
 
         var file = new classes.FileInfo();
         file.filename = fileObj.originalFilename;
-        file.extraData = dataObj;
         file.size = fileObj.size;
+        file.extraData = fileExtraObj;
 
         console.log(util.inspect(document));
 
