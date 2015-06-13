@@ -26,7 +26,7 @@ router.post('/', function (request, response) {
         db.getUser(JSON.parse(fields.objectData[0]).objectId, function(err, resObj) {
             console.log('store file');
             fs_data.storeFile(files.file[0], resObj, function(newFilename) {
-                resObj.files
+                response.json({ storedFile:newFilename, status:"OK" });
             });
         });
     });
