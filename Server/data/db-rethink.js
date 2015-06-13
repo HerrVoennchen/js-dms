@@ -35,7 +35,9 @@ exports.deleteUser = function(id, callback) {
 };
 
 exports.searchDocs = function (docObj, callback) {
-
+    r.db(config.database.dbname).table('documents').run(function(err, res) {
+        callback(err, res);
+    });
 };
 
 exports.addDocument = function (document, callback) {

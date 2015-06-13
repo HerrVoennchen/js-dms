@@ -14,9 +14,16 @@ var router = express.Router();
 
 fs_data.init();
 
-var listAllDocs = function(request, response) {
-
-};
+router.get('/', function(request, response) {
+    var searchData = request.body;
+    db.searchDocs(searchData, function (err, list) {
+        if(err) {
+            response.json({ type: false, data: 'Error: ' + err });
+        } else {
+            response.json(list);
+        }
+    })
+});
 
 /// objectData = indexdaten Dokument
 /// locationData = indexdaten Standort
