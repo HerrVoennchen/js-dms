@@ -23,10 +23,24 @@ router.post('/', function (request, response) {
 
     var form = new multiparty.Form();
     form.parse(request, function(err, fields, files) {
-        db.getUser(JSON.parse(fields.objectData[0]).objectId, function(err, resObj) {
+
+        var fileObj = files.file[0];
+        var dataObj = JSON.parse(fields.objectData[0]);
+
+        var document = new Document();
+        document.name = fileObj.originalFilename;
+
+        var file = new File();
+        file.filename = fileObj.originalFilename;
+        file.extraData = dataObj;
+        file.size = fileObj.size;
+
+        document.files.add(file);
+
+        db.addDocument(document, function(err, res) {
             console.log('store file');
-            fs_data.storeFile(files.file[0], resObj, function(newFilename) {
-                response.json({ storedFile:newFilename, status:"OK" });
+            fs_data.storeFile(fileObj, res, function(newFilename) {
+                response.json({ storedFile:newFilename, documentId:util.inspect(res), status:"OK" });
             });
         });
     });

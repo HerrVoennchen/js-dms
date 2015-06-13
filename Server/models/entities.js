@@ -25,3 +25,11 @@ class Container extends Entity {
         this.type = 'CONTAINER';
     }
 }
+
+class File {
+    constructor() {
+        this.filename = '';
+        this.size = 0;
+        this.extraData = {};
+    }
+}

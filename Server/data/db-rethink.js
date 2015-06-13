@@ -39,6 +39,6 @@ exports.searchDocs = function (docObj, callback) {
 
 exports.addDocument = function (document, callback) {
     r.db(config.database.dbname).table('documents').insert(document).run(function(err, res) {
-        callback(err);
+        callback(err, res);
     });
 };
