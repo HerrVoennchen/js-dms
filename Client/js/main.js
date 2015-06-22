@@ -13,7 +13,10 @@ app.config(['$routeProvider', function($routeProvider) {
 		controller: 'userDetailsController'
 	}).when('/search', {
 		templateUrl: 'views/search/searchDocs.html',
-		controller: 'userDetailsController'
+		controller: 'searchDocsController'
+	}).when('/search/new', {
+		templateUrl: 'views/search/newDocument.html',
+		controller: 'newDocumentController'
 	}).otherwise({
 		redirectTo: '/'
 	});

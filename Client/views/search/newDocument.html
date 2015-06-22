@@ -1,0 +1,11 @@
+<div class="page-header">
+	<h1>{{ caption }}</h1>
+</div>
+<form ng-submit="submit()">
+	<input type="submit" id="submit" value="Save" class="btn btn-success"></input>
+	<input type="reset" id="reset" value="Reset" class="btn btn-default" ng-click="reset()"></input>
+	<p>
+		<div class="alert alert-success" role="alert" ng-show="alertIsVisible">Object successfully created.</div>
+		<div class="alert alert-danger" role="alert" ng-show="errorAlertIsVisible">Operation failed.</div>
+	</p>
+</form>
