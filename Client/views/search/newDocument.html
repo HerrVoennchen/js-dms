@@ -2,10 +2,74 @@
 	<h1>{{ caption }}</h1>
 </div>
 <form ng-submit="submit()">
-	<input type="submit" id="submit" value="Save" class="btn btn-success"></input>
+	<p>
+		<div class="input-group">
+			<span class="input-group-addon">Name</span>
+			<input type="text" class="form-control" ng-model="newDoc.name" placeholder="Name" />
+		</div>
+	</p>
+	<p>
+		<div class="input-group">
+			<span class="input-group-addon">Type</span>
+			<p>
+				<select class="selectpicker show-tick" data-width="100%" ng-model="newDoc.type">
+					<option data-icon="glyphicon-file">Document</option>
+					<option data-icon="glyphicon-book">Container</option>
+				</select>
+			</p>
+		</div>
+	</p>
+	<p>
+		<div class="input-group">
+			<span class="input-group-addon">Description</span>
+			<textarea rows="4" cols="100%" ng-model="newDoc.description" placeholder="Description" />
+		</div>
+	</p>
+	<p>
+		<div class="input-group">
+			<span class="input-group-addon">Tags</span>
+			<input type="text" class="form-control" ng-model="newDoc.tags" placeholder="Tags">
+			<div class="input-group-btn">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TS
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<li>
+						<a href="#">Action</a>
+					</li>
+					<li>
+						<a href="#">Another action</a>
+					</li>
+					<li>
+						<a href="#">Something else here</a>
+					</li>
+					<li role="separator" class="divider"></li>
+					<li>
+						<a href="#">Separated link</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</p>
+	<p>
+		<div class="input-group">
+			<span class="input-group-addon">File</span>
+			<input type="text" class="form-control" ng-model="filename" placeholder="Name" />
+			<span class="btn btn-default btn-file">Browse
+				<input type="file" ng-model="filename">
+			</span>
+		</div>
+	</p>
+	<input type="submit" id="submit" value="Create" class="btn btn-success"></input>
 	<input type="reset" id="reset" value="Reset" class="btn btn-default" ng-click="reset()"></input>
 	<p>
 		<div class="alert alert-success" role="alert" ng-show="alertIsVisible">Object successfully created.</div>
 		<div class="alert alert-danger" role="alert" ng-show="errorAlertIsVisible">Operation failed.</div>
 	</p>
+	<div class="progress" ng-show="pendingRequest">
+		<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="1"
+		style="width: 100%">
+			<span class="sr-only">100% Complete</span>
+		</div>
+	</div>
 </form>

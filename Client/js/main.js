@@ -1,5 +1,5 @@
 
-var app = angular.module('jsdms-client', ['ngRoute', 'admin-directives']);
+var app = angular.module('jsdms-client', ['ngRoute', 'admin-directives', 'search-directives']);
 
 app.config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/admin/users', {

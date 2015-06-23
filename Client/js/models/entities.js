@@ -34,14 +34,9 @@ Document.prototype = Object.create(Entity.prototype);
 Document.prototype.constructor = Document;
 
 var Container = function () {
+    Entity.call(this);
     this.type = 'CONTAINER';
 }
 
 Container.prototype = Object.create(Entity.prototype);
 Container.prototype.constructor = Container;
-
-module.exports.FieldInfo = FieldInfo;
-module.exports.Entity = Entity;
-module.exports.FileInfo = FileInfo;
-module.exports.Document = Document;
-module.exports.Container = Container;

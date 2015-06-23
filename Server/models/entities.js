@@ -34,6 +34,7 @@ Document.prototype = Object.create(Entity.prototype);
 Document.prototype.constructor = Document;
 
 var Container = function () {
+    Entity.call(this);
     this.type = 'CONTAINER';
 }
 
