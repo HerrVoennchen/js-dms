@@ -1,7 +1,7 @@
 /**
  * Created by sebastian on 12.06.15.
  */
-var config = require('../../config/config.json');
+var config = require('../../config.json');
 
 var fs = require('fs');
 var path = require('path');

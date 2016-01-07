@@ -1,4 +1,4 @@
-var config = require('../config/config.json');
+var config = require('../config.json');
 var r = require('rethinkdbdash')({ servers: config.database.hosts });
 var util = require('util');
 

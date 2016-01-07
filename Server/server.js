@@ -1,6 +1,6 @@
 console.log('Service is starting up ...');
 
-var config = require('./config/config.json');
+var config = require('./config.json');
 
 var cluster = require('cluster');
 var numCPUs = 1;//require('os').cpus().length;

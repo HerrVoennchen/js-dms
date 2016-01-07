@@ -1,7 +1,7 @@
 /**
  * Created by sebastian on 13.06.15.
  */
-var config = require('./config/config.json');
+var config = require('./config.json');
 var r = require('rethinkdbdash')({ servers: config.database.hosts });
 
 r.dbCreate(config.database.dbname).run(function() {
